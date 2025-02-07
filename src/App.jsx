@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import { AddTask } from './assets/componentes/AddTask' 
+import { AddTask } from './componentes/AddTask' 
+import { ShowTasks } from './componentes/ShowTasks'
 
 function App() {
   const [tasks,setTasks] = useState([])
@@ -12,11 +13,22 @@ function App() {
     }
     setTasks([...tasks,object])   
   }
+  const changeStatus = (indice)=>{
+    tasks[indice].status = !tasks[indice].status
+    setTasks([...tasks])
+  }
+
+  const removeTasks = (indice)=>{
+    tasks.splice(indice,1)
+    setTasks([...tasks])
+  }
 
 
   return (
     <>
+    <h1>Administrador de tareas </h1>
       <AddTask addTask={addTask}/> 
+      <ShowTasks tasksList={tasks} changeStatus={changeStatus} removeTasks={removeTasks}/>
     </>
   )
 }
